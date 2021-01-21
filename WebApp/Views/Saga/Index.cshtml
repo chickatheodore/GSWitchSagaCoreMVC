@@ -59,18 +59,18 @@
                 }
                 else
                 {
-                    @:invalid data given.
+                    @:Return -1. invalid data given.
                 }
             </div>
             <div class="row">
                 Person B born on Year = @(Model.SecondPerson.YearOfDeath) – @(Model.SecondPerson.AgeOfDeath) = @(Model.SecondPerson.YearSeries),
-                @if (Model.FirstPerson.IsValid)
+                @if (Model.SecondPerson.IsValid)
                 {
                     @:number of people killed on year @(Model.SecondPerson.YearSeries) is @(Model.SecondPerson.NumberOfPersonKilled).
                 }
                 else
                 {
-                    @:invalid data given.
+                    @:Return -1. invalid data given.
                 }
             </div>
 
