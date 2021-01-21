@@ -1,0 +1,99 @@
+﻿@model WebApp.Models.SagaViewModel
+
+@{
+    ViewData["Title"] = "Geekseat Witch Saga";
+}
+
+<h1>Saga</h1>
+
+<h4>SagaViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Saga" method="post" class="form-horizontal" role="form">
+            <div asp-validation-summary="ModelOnly" class="text-danger">
+            </div>
+
+            <div class="row">
+                <h3>Person A</h3>
+                <div class="col-md-12">
+                    <div class="col-md-12 form-group">
+                        <label for="textPersonA_AgeOfDeath">Age of Death :</label>
+                        <div class="input-group">
+                            <input type="number" id="textPersonA_AgeOfDeath" name="textPersonA_AgeOfDeath" value="@Model.FirstPerson.AgeOfDeath" required />
+                        </div>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label for="textPersonA_YearOfDeath">Year of Death :</label>
+                        <div class="input-group">
+                            <input type="number" id="textPersonA_YearOfDeath" name="textPersonA_YearOfDeath" value="@Model.FirstPerson.YearOfDeath" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <h3>Person B</h3>
+                <div class="col-md-12">
+                    <div class="col-md-6 form-group">
+                        <label for="textPersonB_AgeOfDeath">Age of Death :</label>
+                        <div class="input-group">
+                            <input type="number" id="textPersonB_AgeOfDeath" name="textPersonB_AgeOfDeath" value="@Model.SecondPerson.AgeOfDeath" required />
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="textPersonB_YearOfDeath">Year of Death :</label>
+                        <div class="input-group">
+                            <input type="number" id="textPersonB_YearOfDeath" name="textPersonB_YearOfDeath" value="@Model.SecondPerson.YearOfDeath" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">&nbsp;</div>
+
+            <div class="row">
+                Person A born on Year = @(Model.FirstPerson.YearOfDeath) – @(Model.FirstPerson.AgeOfDeath) = @(Model.FirstPerson.YearSeries),
+                @if (Model.FirstPerson.IsValid)
+                {
+                    @:number of people killed on year @(Model.FirstPerson.YearSeries) is @(Model.FirstPerson.NumberOfPersonKilled).
+                }
+                else
+                {
+                    @:invalid data given.
+                }
+            </div>
+            <div class="row">
+                Person B born on Year = @(Model.SecondPerson.YearOfDeath) – @(Model.SecondPerson.AgeOfDeath) = @(Model.SecondPerson.YearSeries),
+                @if (Model.FirstPerson.IsValid)
+                {
+                    @:number of people killed on year @(Model.SecondPerson.YearSeries) is @(Model.SecondPerson.NumberOfPersonKilled).
+                }
+                else
+                {
+                    @:invalid data given.
+                }
+            </div>
+
+            <div class="row">&nbsp;</div>
+            <div class="row">
+                @if (Model.FirstPerson.NumberOfPersonKilled < 0 || Model.SecondPerson.NumberOfPersonKilled < 0)         @*   Check if you give invalid data   *@
+                {
+                    @:Return -1. Invalid data.
+                }
+                else
+                {
+                    @:So the average is ( @(Model.FirstPerson.NumberOfPersonKilled) + @(Model.SecondPerson.NumberOfPersonKilled) )/2 = @(Model.Average)
+                }
+            </div>
+            <div class="row">&nbsp;</div>
+
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
